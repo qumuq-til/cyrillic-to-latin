@@ -10,6 +10,7 @@ namespace TransliterateCyrillicPlugin;
  * @return  void
  * @license MIT License by Ole Vik
  */
+
 class TransliterateCyrillicMethod
 {
 	public const CYRILLIC = [
@@ -67,18 +68,13 @@ class TransliterateCyrillicMethod
 		"\bажжал",
 		"\bажиз",
 		"\bжанжал",
-		"\bжанжепил",
 		"\bёл",
-		"\bюк",
-		"\bюн",
 		"\bёрт",
 		"\bёюв",
-		"\bюз",
 		"\bачыкъюрек",
 		"\bкъурсакъетек",
 		"\bаламат",
 		"\bалапа",
-		"\bалат",
 		"\bбаркаман",
 		"\bжумла",
 		"\bзакат",
@@ -88,7 +84,6 @@ class TransliterateCyrillicMethod
 		"\bихтилат",
 		"\bкабап",
 		"\bкабаб",
-		"\bкагъыз",
 		"\bкагъыт",
 		"\bкагьраба",
 		"\bкалам",
@@ -123,7 +118,6 @@ class TransliterateCyrillicMethod
 		"\bтаала",
 		"\bтаъла",
 		"\bталакъ",
-		"\bталагъ",
 		"\bхала",
 		"\bмалайик",
 		"\bмалайик",
@@ -141,7 +135,6 @@ class TransliterateCyrillicMethod
 		"\bгагь",
 		"\bнагагь",
 		"\bдескагь",
-		"\bкап",
 		"\bмуракаплы",
 		"\bмакъала",
 		"\bмасала",
@@ -315,8 +308,6 @@ class TransliterateCyrillicMethod
 		"\bбарият",
 		"юрт",
 		"\bсингир\b",
-		"\bсюнгюн\b",
-		"\bгёнгюн\b",
 		"\bхангиши",
 		"\bархив",
 		"\bкъолязыв",
@@ -374,8 +365,32 @@ class TransliterateCyrillicMethod
 		"\bраввинге\b",
 		"\bсатинге\b",
 		"\bгёгюрчюнге\b",
-		"\bажи\b"
-	];
+		"\bажи\b",
+		"\bБиякъай",
+		"\bБурлият",
+		"\bАлия",
+		"\bСафия",
+		"\bСамия",
+		"\bБиярслан",
+		"\bалата",
+		"\bалато",
+		"\bалат",
+		"\bют",
+		"\bиюл",
+		"\bиюн",
+		"\bялангёлек",
+		"\bюм\b",
+		"ёгъесе",
+		"\bтаъала",
+		"\bнаълат",
+		"\bсююнчкъала",
+		"\bзиявдин",
+		"\bхангерей",
+		"\bасият",
+		"\bумсапият",
+		"\bразия",
+		"\bмарзия"
+];
 
 	public const LATIN = [
 		"qangüçew",
@@ -432,18 +447,13 @@ class TransliterateCyrillicMethod
 		"accal",
 		"aciz",
 		"cancal",
-		"cancepil",
 		"yol",
-		"yük",
-		"yün",
 		"yort",
 		"yoyuw",
-		"yüz",
 		"açıqyürek",
 		"qursaqetek",
 		"alämat",
 		"aläpa",
-		"alät",
 		"barkäman",
 		"cumlä",
 		"zakät",
@@ -453,7 +463,6 @@ class TransliterateCyrillicMethod
 		"ixtilät",
 		"käbap",
 		"käbab",
-		"käğız",
 		"käğıt",
 		"kähraba",
 		"käläm",
@@ -488,7 +497,6 @@ class TransliterateCyrillicMethod
 		"taalä",
 		"taʼlä",
 		"taläq",
-		"taläğ",
 		"xalä",
 		"maläyik",
 		"maläyig",
@@ -506,7 +514,6 @@ class TransliterateCyrillicMethod
 		"gäh",
 		"nagäh",
 		"deskäh",
-		"käp",
 		"murakkäplı",
 		"maqalä",
 		"masala",
@@ -623,7 +630,7 @@ class TransliterateCyrillicMethod
 		"siyan",
 		"qansiyala",
 		"ixtiyar",
-		"insani",
+		"insaniyat",
 		"ziyara",
 		"ziyan",
 		"wasiyat",
@@ -680,8 +687,6 @@ class TransliterateCyrillicMethod
 		"bariyat",
 		"yurt",
 		"siñir",
-		"süñün",
-		"göñün",
 		"xangişi",
 		"arxiv",
 		"qolyazıw",
@@ -739,8 +744,32 @@ class TransliterateCyrillicMethod
 		"rawwinge",
 		"satinge",
 		"gögürçünge",
-		"aci"
-	];
+		"aci",
+		"Biyaqay",
+		"Burliyat",
+		"Aliya",
+		"Safiya",
+		"Samiya",
+		"Biyarslan",
+		"alata",
+		"alato",
+		"alät",
+		"yut",
+		"iyül",
+		"iyün",
+		"yalangölek",
+		"yum",
+		"yoğese",
+		"taʼalä",
+		"naʼlät",
+		"süyünçqala",
+		"ziyawdin",
+		"xangerey",
+		"asiyat",
+		"umsapiyat",
+		"raziya",
+		"marziya"
+];
 
 	/**
 	 * Transliterate text from cyrillic to latin
@@ -759,7 +788,7 @@ class TransliterateCyrillicMethod
 			$currentword = preg_replace("/^/", "/", $currentword);
 			$currentword = preg_replace("/$/", "/iu", $currentword);
 		});
-	
+
 		$text = preg_replace_callback($exceptions["cyrillic"], function ($matches) use ($exceptions) {
 			$check = mb_substr($matches[0], 0, 1);
 			if (mb_strtoupper($check) == $check) {
@@ -770,7 +799,7 @@ class TransliterateCyrillicMethod
 				return $replacement;
 			}
 		}, $text);
-	
+
 		//Замены букв
 		$text = str_replace('къ', 'q', $text); // къ
 		$text = str_replace('КЪ', 'Q', $text); // КЪ
@@ -787,18 +816,18 @@ class TransliterateCyrillicMethod
 		$text = str_replace('оь', 'ö', $text); // оь
 		$text = str_replace('ОЬ', 'Ö', $text); // ОЬ
 		$text = str_replace('Оь', 'Ö', $text); // Оь
-		
+
 		$text = preg_replace('/\bЕ(?=\p{Lu})/u', 'YE', $text); // ^Е+заглавные
 		$text = preg_replace('/\bЕ(?=\p{Ll})/u', 'Ye', $text); // ^Е+прописные
 		$text = preg_replace('/\bе/u', 'ye', $text); // е+прописные
 		$text = preg_replace('/(?<=[аоуэыяёюеиьъАОУЭЫЯЁЮЕИЬЪ])е/u', 'ye', $text); // гласная(любой регистр)+е
 		$text = preg_replace('/(?<=[аоуэыяёюеиьъАОУЭЫЯЁЮЕИЬЪ])Е/u', 'YE', $text); // гласная(любой регистр)+Е
-	
+
 		$text = preg_replace('/(?<=[бвгджзклмнпрстфхцчшщйБВГДЖЗКЛМНПРСТФХЦЧШЩЙ])Я/u', 'Ä', $text); // согласная(любой регистр)+Я
 		$text = preg_replace('/(?<=[бвгджзклмнпрстфхцчшщйБВГДЖЗКЛМНПРСТФХЦЧШЩЙ])я/u', 'ä', $text); // согласная(любой регистр)+я
 		$text = preg_replace('/Я(?=\p{Ll})/u', 'Ya', $text); // Я + прописные
 		$text = preg_replace('/\bЯ\b/u', 'Ya', $text); // Я отдельно стоящаяe
-	
+
 		$text = preg_replace('/(\bЁ|(?:(?<=Э)|(?<=E)|(?<=УЬ)|(?<=ОЬ)|(?<=Ю)|(?<=Ё|(?<=Ъ)))Ё)(?=([БВГДЖЗКЛМНПРСТФХЦЧШЩЙЬЪЁЮ]*(Е|И|УЬ|ОЬ|YE|Ye|\b))|К\b|\b)/u', 'YÖ', $text);
 		$text = preg_replace('/(\bЁ|(?:(?<=э)|(?<=e)|(?<=уь)|(?<=оь)|(?<=ю)|(?<=Э)|(?<=E)|(?<=УЬ)|(?<=ОЬ)|(?<=Уь)|(?<=Оь)|(?<=ё)|(?<=Ё)|(?<=ъ)|(?<=Ъ))Ё)(?=([бвгджзклмнпрстфхцчшщйьъёю]*(Е|И|УЬ|ОЬ|е|и|уь|оь|YE|Ye|ye|\b))|К\b|к\b|\b)/u', 'Yö', $text);
 		$text = preg_replace('/(\bЁ|(?<=[АОУЫЮЯЁЪ])Ё)(?=([БВГДЖЗКЛМНПРСТФХЦЧШЩЙЬЪĞQ]*(А|Ы|У|О|Ю|Ё|\b))|Q\b)/u', 'YO', $text);
@@ -807,18 +836,18 @@ class TransliterateCyrillicMethod
 		$text = preg_replace('/(\bЮ|(?:(?<=э)|(?<=e)|(?<=уь)|(?<=оь)|(?<=ю)|(?<=Э)|(?<=E)|(?<=УЬ)|(?<=ОЬ)|(?<=Уь)|(?<=Оь)|(?<=ё)|(?<=Ё)|(?<=ö)|(?<=ъ)|(?<=Ъ))Ю)(?=([бвгджзклмнпрстфхцчшщйьъюёö]*(Е|И|УЬ|ОЬ|е|и|уь|оь|YE|Ye|ye|\b))|К\b|к\b)/u', 'Yü', $text);
 		$text = preg_replace('/(\bЮ|(?<=[АОУЫЯЁЪO])Ю)(?=([БВГДЖЗКЛМНПРСТФХЦЧШЩЙЬЪĞQ]*(А|Ы|У|О|Ё|Ю|YO|\b))|КЪ\b)/u', 'YU', $text);
 		$text = preg_replace('/(\bЮ|(?<=[аоуыяёъАОУЫЯЁЪOo])Ю)(?=([бвгджзклмнпрстфхцчшщйьъğq]*(А|Ы|У|О|Ё|Ю|YO|Yo|а|ы|у|о|ё|ю|yo|\b))|КЪ\b|къ\b)/u', 'Yu', $text);
-	
+
 		$text = preg_replace('/(\bё|(?:(?<=э)|(?<=e)|(?<=ü)|(?<=ö)|(?<=ю)|(?<=Э)|(?<=E)|(?<=Ü)|(?<=Ö)|(?<=ё)|(?<=Ё)|(?<=ъ)|(?<=Ъ))ё)(?=([бвгджзклмнпрстфхцчшщйьъёю]*(Е|И|Ü|ОЬ|е|и|ü|ö|YE|Ye|ye|\b))|К\b|к\b|\b)/u', 'yö', $text);
 		$text = preg_replace('/(\bё|(?<=[аоуыюяёъАОУЫЮЯЁЪ])ё)(?=([бвгджзклмнпрстфхцчшщйьъğq]*(А|Ы|У|О|Ю|Ё|а|ы|у|о|ю|ё|\b))|Q\b|q\b)/u', 'yo', $text);
-	
+
 		$text = preg_replace('/(\bю|(?:(?<=э)|(?<=e)|(?<=ü)|(?<=ö)|(?<=ю)|(?<=Э)|(?<=E)|(?<=Ü)|(?<=Ö)|(?<=ё)|(?<=Ё)|(?<=ö)|(?<=ъ)|(?<=Ъ))ю)(?=([бвгджзклмнпрстфхцчшщйьъюёö]*(Е|И|Ü|Ö|е|и|ü|ö|YE|Ye|ye|\b))|К\b|к\b)/u', 'yü', $text);
 		$text = preg_replace('/(\bю|(?<=[аоуыяёъАОУЫЯЁЪOo])ю)(?=([бвгджзклмнпрстфхцчшщйьъğq]*(А|Ы|У|О|Ё|Ю|а|ы|у|о|ё|ю|yo|\b))|КЪ\b|къ\b)/u', 'yu', $text);
-	
+
 		$text = str_replace('ДЖ', 'C', $text); // ДЖ
 		$text = str_replace('дж', 'c', $text); // дж
 		$text = preg_replace('/\bЖ/u', 'C', $text); // ^Ж
 		$text = preg_replace('/\bж/u', 'c', $text); // ^ж
-	
+
 		$text = preg_replace('/ЗИЯ\b/u', 'ZYA', $text); // ЗИЯ^
 		$text = preg_replace('/зия\b/iu', 'zya', $text); // зия^ без учёта регистра
 		$text = preg_replace('/ЛЬОН\b/u', 'LYON', $text); // ЛЬОН^
@@ -847,7 +876,7 @@ class TransliterateCyrillicMethod
 		$text = preg_replace('/НГЕ\b/u', 'NGE', $text);
 		$text = preg_replace('/нги\b/iu', 'ngi', $text);
 		$text = preg_replace('/НГИ\b/u', 'NGI', $text);
-	
+
 		$text = str_replace('НГЕН', 'NGEN', $text); // НГЕН^
 		$text = str_ireplace('нген', 'ngen', $text); // нген^ без учёта регистра
 		$text = str_replace('ГЕНГ', 'GENG', $text); // ГЕНГ^
@@ -868,7 +897,7 @@ class TransliterateCyrillicMethod
 		$text = str_ireplace('нгъур', 'ngur', $text); // нгъур^ без учёта регистра
 		$text = str_replace('НГЮР', 'NGÜR', $text); // НГЮР^
 		$text = str_ireplace('нгюр', 'ngür', $text); // нгюр^ без учёта регистра
-	
+
 		$text = str_replace('НГ', 'Ñ', $text); // НГ
 		$text = str_replace('Нг', 'Ñ', $text); // Нг
 		$text = str_replace('нг', 'ñ', $text); // нг
@@ -937,7 +966,7 @@ class TransliterateCyrillicMethod
 		$text = str_replace('ь', '', $text); // ь
 		$text = str_replace('я', 'ya', $text); // я
 		$text = str_replace('Я', 'YA', $text); // Я
-	
+
 		return $text;
 	}
 }
