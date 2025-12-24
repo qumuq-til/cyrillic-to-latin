@@ -887,8 +887,8 @@ class TransliterateCyrillicMethod
 		$text = str_ireplace('нгъын', 'nğın', $text); // нгъын^ без учёта регистра
 		$text = str_replace('НГЪУН', 'NĞUN', $text); // НГЪУН^
 		$text = str_ireplace('нгъун', 'nğun', $text); // нгъун^ без учёта регистра
-		$text = str_replace('НГЮН', 'NGÜN;', $text); // НГЮН^
-		$text = str_ireplace('нгюн', 'ngün;', $text); // нгюн^ без учёта регистра
+		$text = str_replace('НГЮН', 'NGÜN', $text); // НГЮН^
+		$text = str_ireplace('нгюн', 'ngün', $text); // нгюн^ без учёта регистра
 		$text = str_replace('НГЪЫР', 'NĞİR', $text); // НГЪЫР^
 		$text = str_ireplace('нгъыр', 'nğır', $text); // нгъыр^ без учёта регистра
 		$text = str_replace('НГИР', 'NGİR', $text); // НГИР^
